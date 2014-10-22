@@ -5,13 +5,13 @@
 
 
 /** 
-* \file 		command_processing.c
+* \file         command_processing.c
 *
 
-* \brief 		Command processing functions.
-* \date 		Feb 06, 2012
-* \author 		qbrobotics
-* \copyright	(C)  qbrobotics. All rights reserved.
+* \brief        Command processing functions.
+* \date         Feb 06, 2012
+* \author       qbrobotics
+* \copyright    (C)  qbrobotics. All rights reserved.
 */
 
 //=================================================================     includes
@@ -27,38 +27,38 @@ reg8 * EEPROM_ADDR = (reg8 *) CYDEV_EE_BASE;
 //==============================================================================
 //                                                            RX DATA PROCESSING
 //==============================================================================
-//	This function checks for the availability of a data packet and process it:
-// 		- Verify checksum;
-// 		- Process commands;
+//  This function checks for the availability of a data packet and process it:
+//      - Verify checksum;
+//      - Process commands;
 //==============================================================================
 
 void commProcess(void){
     int i;              //iterator
-	uint8 rx_cmd;
-	uint8 aux_checksum; 
-	uint8 packet_data[16];
-	uint8 packet_lenght;
+    uint8 rx_cmd;
+    uint8 aux_checksum; 
+    uint8 packet_data[16];
+    uint8 packet_lenght;
     int32 pos_1, pos_2;
     uint32 off_1, off_2;
     uint32 mult_1, mult_2;
-	    
-	rx_cmd = g_rx.buffer[0];
-		
+        
+    rx_cmd = g_rx.buffer[0];
+        
 //==========================================================     verify checksum
-	aux_checksum = LCRChecksum(g_rx.buffer,
-		g_rx.length - 1);
-	if (!(aux_checksum ==
-	g_rx.buffer[g_rx.length-1])){
-		// wrong checksum
-		g_rx.ready = 0;
-		return;	
-	}	
+    aux_checksum = LCRChecksum(g_rx.buffer,
+        g_rx.length - 1);
+    if (!(aux_checksum ==
+    g_rx.buffer[g_rx.length-1])){
+        // wrong checksum
+        g_rx.ready = 0;
+        return; 
+    }   
 
 
-	switch(rx_cmd){
-//=============================================================     CMD_ACTIVATE		
-		case CMD_ACTIVATE:
-		    g_ref.onoff = g_rx.buffer[1];
+    switch(rx_cmd){
+//=============================================================     CMD_ACTIVATE        
+        case CMD_ACTIVATE:
+            g_ref.onoff = g_rx.buffer[1];
 
 
             #if (CONTROL_MODE == CONTROL_ANGLE)
@@ -67,15 +67,15 @@ void commProcess(void){
             #endif
             MOTOR_ON_OFF_Write(g_ref.onoff);
 
-    		break;
+            break;
 //===========================================================     CMD_SET_INPUTS
-			
-		case CMD_SET_INPUTS:
-		    g_ref.pos[0] = *((int16 *) &g_rx.buffer[1]);   // motor 1      
-		    g_ref.pos[0] = g_ref.pos[0] << g_mem.res[0];
+            
+        case CMD_SET_INPUTS:
+            g_ref.pos[0] = *((int16 *) &g_rx.buffer[1]);   // motor 1      
+            g_ref.pos[0] = g_ref.pos[0] << g_mem.res[0];
 
-		    g_ref.pos[1] = *((int16 *) &g_rx.buffer[3]);   // motor 2
-		    g_ref.pos[1] = g_ref.pos[1] << g_mem.res[1];
+            g_ref.pos[1] = *((int16 *) &g_rx.buffer[3]);   // motor 2
+            g_ref.pos[1] = g_ref.pos[1] << g_mem.res[1];
 
             if (c_mem.pos_lim_flag) {                      // pos limiting
                 if (g_ref.pos[0] < c_mem.pos_lim_inf[0]) g_ref.pos[0] = c_mem.pos_lim_inf[0];
@@ -85,7 +85,7 @@ void commProcess(void){
                 if (g_ref.pos[1] > c_mem.pos_lim_sup[1]) g_ref.pos[1] = c_mem.pos_lim_sup[1];
             }
 
-    		break;
+            break;
 
 //========================================================     CMD_SET_POS_STIFF
 
@@ -95,39 +95,39 @@ void commProcess(void){
 
 //=====================================================     CMD_GET_MEASUREMENTS
 
-		case CMD_GET_MEASUREMENTS:
-			// Packet: header + measure(int16) + crc
+        case CMD_GET_MEASUREMENTS:
+            // Packet: header + measure(int16) + crc
             packet_lenght = 1 + (NUM_OF_SENSORS * 2) + 1;
 
-			packet_data[0] = CMD_GET_MEASUREMENTS;   //header
+            packet_data[0] = CMD_GET_MEASUREMENTS;   //header
 
             for (i = 0; i < NUM_OF_SENSORS; i++) {
                 *((int16 *) &packet_data[(i*2) + 1]) = (int16)
                 (g_meas.pos[i] >> g_mem.res[i]);
             }
 
-			packet_data[packet_lenght - 1] = 
+            packet_data[packet_lenght - 1] = 
                     LCRChecksum (packet_data,packet_lenght - 1);
 
-		    commWrite(packet_data, packet_lenght);
+            commWrite(packet_data, packet_lenght);
 
-		break;
+        break;
 
 //=========================================================     CMD_GET_CURRENTS
 
-		case CMD_GET_CURRENTS:
+        case CMD_GET_CURRENTS:
             //Packt: header + measure(int16) + CRC
-			packet_lenght = 6;
-			
-			packet_data[0] = CMD_GET_CURRENTS;				
-			
-		    *((int16 *) &packet_data[1]) = (int16) g_meas.curr[0];
-		    *((int16 *) &packet_data[3]) = (int16) g_meas.curr[1];
-			
-			packet_data[5] = LCRChecksum (packet_data,packet_lenght - 1);
+            packet_lenght = 6;
+            
+            packet_data[0] = CMD_GET_CURRENTS;              
+            
+            *((int16 *) &packet_data[1]) = (int16) g_meas.curr[0];
+            *((int16 *) &packet_data[3]) = (int16) g_meas.curr[1];
+            
+            packet_data[5] = LCRChecksum (packet_data,packet_lenght - 1);
 
-			commWrite(packet_data, packet_lenght);
-		break;
+            commWrite(packet_data, packet_lenght);
+        break;
 
 //=========================================================     CMD_GET_EMG
 
@@ -194,30 +194,30 @@ void commProcess(void){
         break;
 
 //=========================================================     CMD_GET_ACTIVATE
-		
+        
         case CMD_GET_ACTIVATE:
-			packet_lenght = 3;                                                     
+            packet_lenght = 3;                                                     
 
-		    packet_data[0] = CMD_GET_ACTIVATE;
-		    packet_data[1] = g_ref.onoff;
-		    packet_data[2] = LCRChecksum(packet_data,packet_lenght - 1);
-		    commWrite(packet_data, packet_lenght);
+            packet_data[0] = CMD_GET_ACTIVATE;
+            packet_data[1] = g_ref.onoff;
+            packet_data[2] = LCRChecksum(packet_data,packet_lenght - 1);
+            commWrite(packet_data, packet_lenght);
 
             break; 
         
 //============================================================     CMD_GET_INPUT
 
         case CMD_GET_INPUTS:
-			packet_lenght = 6;
+            packet_lenght = 6;
 
-		    pos_1 = g_ref.pos[0]  >> g_mem.res[0];
-		    pos_2 = g_ref.pos[1]  >> g_mem.res[1];
+            pos_1 = g_ref.pos[0]  >> g_mem.res[0];
+            pos_2 = g_ref.pos[1]  >> g_mem.res[1];
 
-		    *((int16 *) &packet_data[1]) = (int16) (pos_1);
-		    *((int16 *) &packet_data[3]) = (int16) (pos_2);
-		    packet_data[5] = LCRChecksum(packet_data,packet_lenght - 1);
+            *((int16 *) &packet_data[1]) = (int16) (pos_1);
+            *((int16 *) &packet_data[3]) = (int16) (pos_2);
+            packet_data[5] = LCRChecksum(packet_data,packet_lenght - 1);
 
-		    commWrite(packet_data, packet_lenght);
+            commWrite(packet_data, packet_lenght);
             break;
 
 //=============================================================     CMD_GET_INFO
@@ -238,30 +238,30 @@ void commProcess(void){
 
 //=================================================================     CMD_PING
         case CMD_PING:
-	        packet_lenght = 2;
-			
-	        packet_data[0] = CMD_PING;
-	        packet_data[1] = CMD_PING;
-			
-	        commWrite(packet_data, packet_lenght);
+            packet_lenght = 2;
+            
+            packet_data[0] = CMD_PING;
+            packet_data[1] = CMD_PING;
+            
+            commWrite(packet_data, packet_lenght);
             break;
 
 //=========================================================     CMD_STORE_PARAMS
         case CMD_STORE_PARAMS:
-		    if( c_mem.input_mode == INPUT_MODE_EXTERNAL )
-		    {
-		        off_1 = c_mem.m_off[0];
-		        off_2 = c_mem.m_off[1];
-		        mult_1 = c_mem.m_mult[0];
-		        mult_2 = c_mem.m_mult[1];
+            if( c_mem.input_mode == INPUT_MODE_EXTERNAL )
+            {
+                off_1 = c_mem.m_off[0];
+                off_2 = c_mem.m_off[1];
+                mult_1 = c_mem.m_mult[0];
+                mult_2 = c_mem.m_mult[1];
  
-			    g_ref.pos[0] /= mult_1;
-		        g_ref.pos[1] /= mult_2;
-		        g_ref.pos[0] *= g_mem.m_mult[0];
-		        g_ref.pos[1] *= g_mem.m_mult[1];
+                g_ref.pos[0] /= mult_1;
+                g_ref.pos[1] /= mult_2;
+                g_ref.pos[0] *= g_mem.m_mult[0];
+                g_ref.pos[1] *= g_mem.m_mult[1];
     
-		        g_ref.pos[0] +=  g_mem.m_off[0] - off_1;
-		        g_ref.pos[1] +=  g_mem.m_off[1] - off_2;
+                g_ref.pos[0] +=  g_mem.m_off[0] - off_1;
+                g_ref.pos[1] +=  g_mem.m_off[1] - off_2;
 
                 if (c_mem.pos_lim_flag) {                   // position limiting
                     if (g_ref.pos[0] < c_mem.pos_lim_inf[0]) g_ref.pos[0] = c_mem.pos_lim_inf[0];
@@ -270,9 +270,9 @@ void commProcess(void){
                     if (g_ref.pos[0] > c_mem.pos_lim_sup[0]) g_ref.pos[0] = c_mem.pos_lim_sup[0];
                     if (g_ref.pos[1] > c_mem.pos_lim_sup[1]) g_ref.pos[1] = c_mem.pos_lim_sup[1];
                 }
-		    }
+            }
 
-		    memStore(0);
+            memStore(0);
             sendAcknowledgment();
             break;
 
@@ -285,7 +285,7 @@ void commProcess(void){
 //=======================================================     CMD_RESTORE_PARAMS
 
         case CMD_RESTORE_PARAMS:
-			memRestore();
+            memRestore();
             sendAcknowledgment();
             break;
 
@@ -385,7 +385,7 @@ void paramSet(uint16 param_type)
     switch(param_type)
     {
         case PARAM_ID:
-        	g_mem.id = g_rx.buffer[3];        
+            g_mem.id = g_rx.buffer[3];        
             break;
 
         case PARAM_PID_CONTROL:
@@ -395,7 +395,7 @@ void paramSet(uint16 param_type)
             break;
 
         case PARAM_STARTUP_ACTIVATION:
-        	g_mem.activ = g_rx.buffer[3];
+            g_mem.activ = g_rx.buffer[3];
             break;        
 
         case PARAM_INPUT_MODE:
@@ -581,7 +581,7 @@ void paramGet(uint16 param_type)
 void infoPrepare(unsigned char *info_string)
 {
     int i;
-	
+    
     unsigned char str[100];    
     strcpy(info_string, "");        
     strcat(info_string, "\r\n");
@@ -752,15 +752,15 @@ void commWrite(uint8 *packet_data, uint16 packet_lenght)
     {
         UART_RS485_PutChar(packet_data[i]); 
     }
-	
+    
 
-	i = 0;
-	
-	while(!(UART_RS485_ReadTxStatus() & UART_RS485_TX_STS_COMPLETE) && i++ <= 1000){}
-	
+    i = 0;
+    
+    while(!(UART_RS485_ReadTxStatus() & UART_RS485_TX_STS_COMPLETE) && i++ <= 1000){}
+    
     RS485_CTS_Write(1);
-    RS485_CTS_Write(0);	
-	
+    RS485_CTS_Write(0); 
+    
         
     // UART_RS485_LoadRxConfig();
 }
@@ -770,13 +770,13 @@ void commWrite(uint8 *packet_data, uint16 packet_lenght)
 //==============================================================================
 
 uint8 LCRChecksum(uint8 *data_array, uint8 data_length) {
-	uint8 i;
-	uint8 checksum = 0x00;
-	for(i = 0; i < data_length; ++i)
-	{
+    uint8 i;
+    uint8 checksum = 0x00;
+    for(i = 0; i < data_length; ++i)
+    {
        checksum = checksum ^ data_array[i];
-	}
-	return checksum;
+    }
+    return checksum;
 }
 
 
@@ -804,7 +804,7 @@ void sendAcknowledgment() {
 **/
 
 void memStore(int displacement)
-{	
+{   
     uint8 writeStatus;
     int i;
     int pages;
@@ -812,7 +812,7 @@ void memStore(int displacement)
     ISR_RS485_RX_Disable();
 
     PWM_MOTORS_WriteCompare1(0);
-	PWM_MOTORS_WriteCompare2(0);
+    PWM_MOTORS_WriteCompare2(0);
 
     // Retrieve temperature for better writing performance
     CySetTemp();
@@ -844,13 +844,13 @@ void memStore(int displacement)
 
 void memRecall(void)
 {
-	uint16 i;
-	
-	for (i = 0; i < sizeof(g_mem); i++) {
-		((reg8 *) &g_mem.flag)[i] = EEPROM_ADDR[i];
-	}
+    uint16 i;
+    
+    for (i = 0; i < sizeof(g_mem); i++) {
+        ((reg8 *) &g_mem.flag)[i] = EEPROM_ADDR[i];
+    }
 
-	//check for initialization
+    //check for initialization
     if (g_mem.flag == FALSE) {
         memRestore();   
     } else {
@@ -935,11 +935,11 @@ void memInit(void)
 
     g_mem.current_limit = DEFAULT_CURRENT_LIMIT;
  
-	//set the initialized flag to show EEPROM has been populated
-	g_mem.flag = TRUE;
+    //set the initialized flag to show EEPROM has been populated
+    g_mem.flag = TRUE;
 
-	//write that configuration to EEPROM
-	memStore(0);
+    //write that configuration to EEPROM
+    memStore(0);
     memStore(DEFAULT_EEPROM_DISPLACEMENT);
 }
 

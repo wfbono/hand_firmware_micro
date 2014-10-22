@@ -4,12 +4,12 @@
 // -----------------------------------------------------------------------------
 
 /** 
-* \file 		utils.h
+* \file         utils.h
 *
-* \brief 		Declaration of utility functions.
-* \date 		Feb 16, 2014
-* \author 		qbrobotics
-* \copyright	(C)  qbrobotics. All rights reserved.
+* \brief        Declaration of utility functions.
+* \date         Feb 16, 2014
+* \author       qbrobotics
+* \copyright    (C)  qbrobotics. All rights reserved.
 */
 
 

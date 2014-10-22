@@ -4,12 +4,12 @@
 // -----------------------------------------------------------------------------
 
 /** 
-* \file 		utils.h
+* \file         utils.h
 *
-* \brief 		Definition of utility functions.
-* \date 		Feb 16, 2014
-* \author 		qbrobotics
-* \copyright	(C)  qbrobotics. All rights reserved.
+* \brief        Definition of utility functions.
+* \date         Feb 16, 2014
+* \author       qbrobotics
+* \copyright    (C)  qbrobotics. All rights reserved.
 */
 
 #include <utils.h>
@@ -25,75 +25,75 @@
 
 int32 filter_v(int32 new_value) {
 
-	static int32 old_value, aux;
+    static int32 old_value, aux;
 
-	aux = (old_value * (1024 - BETA) + new_value * (BETA)) / 1024;
+    aux = (old_value * (1024 - BETA) + new_value * (BETA)) / 1024;
 
-	old_value = aux;
+    old_value = aux;
 
-	return aux;
+    return aux;
 }
 
 
 int32 filter_ch1(int32 new_value) {
 
-	static int32 old_value, aux;
+    static int32 old_value, aux;
 
-	aux = (old_value * (1024 - ALPHA) + new_value * (ALPHA)) / 1024;
+    aux = (old_value * (1024 - ALPHA) + new_value * (ALPHA)) / 1024;
 
-	old_value = new_value;
+    old_value = new_value;
 
-	return aux;
+    return aux;
 }
 
 int32 filter_ch2(int32 new_value) {
 
-	static int32 old_value, aux;
+    static int32 old_value, aux;
 
-	aux = (old_value * (1024 - ALPHA) + new_value * (ALPHA)) / 1024;
+    aux = (old_value * (1024 - ALPHA) + new_value * (ALPHA)) / 1024;
 
-	old_value = new_value;
+    old_value = new_value;
 
-	return aux;
+    return aux;
 }
 
 int32 filter_i1(int32 new_value) {
 
-	static int32 old_value, aux;
+    static int32 old_value, aux;
 
-	aux = (old_value * (1024 - BETA) + new_value * (BETA)) / 1024;
+    aux = (old_value * (1024 - BETA) + new_value * (BETA)) / 1024;
 
-	old_value = aux;
+    old_value = aux;
 
-	return aux;
+    return aux;
 }
 
 int32 filter_i2(int32 new_value) {
 
-	static int32 old_value, aux;
+    static int32 old_value, aux;
 
-	aux = (old_value * (1024 - BETA) + new_value * (BETA)) / 1024;
+    aux = (old_value * (1024 - BETA) + new_value * (BETA)) / 1024;
 
-	old_value = aux;
+    old_value = aux;
 
-	return aux;
+    return aux;
 }
 
 
 //==============================================================================
-//																	BIT CHECKSUM
+//                                                                  BIT CHECKSUM
 //==============================================================================
 
 
 uint8 BITChecksum(uint32 mydata) {
-	uint8 i;
-	uint8 checksum = 0;
-	for(i = 0; i < 31; ++i)
-	{
-       	checksum = checksum ^ (mydata & 1);
-		mydata = mydata >> 1;
-	}
-	return checksum;
+    uint8 i;
+    uint8 checksum = 0;
+    for(i = 0; i < 31; ++i)
+    {
+        checksum = checksum ^ (mydata & 1);
+        mydata = mydata >> 1;
+    }
+    return checksum;
 }
 
 //==============================================================================
@@ -114,48 +114,48 @@ int round(double x) {
 
 int32 my_mod(int32 val, int32 divisor) {
 
-	if (val >= 0) {
-		return (int32)(val % divisor);
-	} else {
-		return (int32)(divisor - (-val % divisor));
-	}
+    if (val >= 0) {
+        return (int32)(val % divisor);
+    } else {
+        return (int32)(divisor - (-val % divisor));
+    }
 }
 
 
 //==============================================================================
-//																	   CALIBRATE
+//                                                                     CALIBRATE
 //==============================================================================
 
 void calibration(void) {
-	static uint8 direction; //0 closing, 1 opening
-	static uint8 closure_counter;
+    static uint8 direction; //0 closing, 1 opening
+    static uint8 closure_counter;
 
 
-	// closing
-	if (direction == 0) {
-		g_ref.pos[0] += dx_sx_hand * calib.speed;
-		// if (abs(g_ref.pos[0]) > closed_hand_pos) {
-		// 	direction = 1;
-		// }
-		if ((g_ref.pos[0] * dx_sx_hand) > closed_hand_pos) {
-			direction = 1;
-		}
-	} else { //opening
-		g_ref.pos[0] -= dx_sx_hand * calib.speed;
-		if (SIGN(g_ref.pos[0]) != dx_sx_hand) {
-			direction = 0;
-			closure_counter++;
-			if (closure_counter == calib.repetitions) {
-				closure_counter = 0;
-				calib.enabled = FALSE;
-			}
-		}
-	}
+    // closing
+    if (direction == 0) {
+        g_ref.pos[0] += dx_sx_hand * calib.speed;
+        // if (abs(g_ref.pos[0]) > closed_hand_pos) {
+        //  direction = 1;
+        // }
+        if ((g_ref.pos[0] * dx_sx_hand) > closed_hand_pos) {
+            direction = 1;
+        }
+    } else { //opening
+        g_ref.pos[0] -= dx_sx_hand * calib.speed;
+        if (SIGN(g_ref.pos[0]) != dx_sx_hand) {
+            direction = 0;
+            closure_counter++;
+            if (closure_counter == calib.repetitions) {
+                closure_counter = 0;
+                calib.enabled = FALSE;
+            }
+        }
+    }
 }
 
 
 //==============================================================================
-//																   HAND FEEDBACK
+//                                                                 HAND FEEDBACK
 //==============================================================================
 
 #define D_model_po 0.
@@ -190,46 +190,46 @@ void calibration(void) {
 
 void torque_feedback() {
 
-	static int32 velocity_sign;
-	static int32 i_old_value, p_old_value;
-	static int32 i_filtered,  p_filtered;
+    static int32 velocity_sign;
+    static int32 i_old_value, p_old_value;
+    static int32 i_filtered,  p_filtered;
 
-	static int32 tmp, old_output;
-
-
-
-	// --- Current filter
-
-	i_filtered = (i_old_value * (1024 - BETA) + g_meas.curr[0] * (BETA)) / 1024;
-
-	i_old_value = i_filtered;
-
-	// --- Position filter
-
-	p_filtered = (p_old_value * (1024 - BETA) + (g_meas.pos[0] / 8) * (BETA)) / 1024;
-
-	p_old_value = p_filtered;
+    static int32 tmp, old_output;
 
 
-	// --- Calculate curr velocity sign
-	velocity_sign = SIGN(p_filtered - p_old_value);
+
+    // --- Current filter
+
+    i_filtered = (i_old_value * (1024 - BETA) + g_meas.curr[0] * (BETA)) / 1024;
+
+    i_old_value = i_filtered;
+
+    // --- Position filter
+
+    p_filtered = (p_old_value * (1024 - BETA) + (g_meas.pos[0] / 8) * (BETA)) / 1024;
+
+    p_old_value = p_filtered;
 
 
-	tmp = (velocity_sign + 1) * p_filtered;
-	tmp /= 1024;
-
-	//tmp = p_filtered / 512;
+    // --- Calculate curr velocity sign
+    velocity_sign = SIGN(p_filtered - p_old_value);
 
 
-	i_filtered -= velocity_sign * P1;
-	i_filtered -= tmp * P2;
-	i_filtered -= (((tmp * p_filtered) / 1024) * P3) / 16;
+    tmp = (velocity_sign + 1) * p_filtered;
+    tmp /= 1024;
 
-	// --- Result ilter
+    //tmp = p_filtered / 512;
 
-	tau_feedback = (old_output * (1024 - BETA) + i_filtered * (BETA)) / 1024;
 
-	old_output = tau_feedback;
+    i_filtered -= velocity_sign * P1;
+    i_filtered -= tmp * P2;
+    i_filtered -= (((tmp * p_filtered) / 1024) * P3) / 16;
+
+    // --- Result ilter
+
+    tau_feedback = (old_output * (1024 - BETA) + i_filtered * (BETA)) / 1024;
+
+    old_output = tau_feedback;
 
 }
 
