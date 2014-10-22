@@ -1,13 +1,13 @@
-Loading plugins phase: Elapsed time ==> 0s.312ms
-Initializing data phase: Elapsed time ==> 1s.934ms
+Loading plugins phase: Elapsed time ==> 0s.255ms
+Initializing data phase: Elapsed time ==> 2s.089ms
 <CYPRESSTAG name="CyDsfit arguments...">
 cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p W:\Centro_Piaggio\QB\qb_github\hand_firmware_micro\firmware.cydsn\firmware.cyprj -d CY8C3246PVI-147 -s W:\Centro_Piaggio\QB\qb_github\hand_firmware_micro\firmware.cydsn\Generated_Source\PSoC3 -- -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=BE</CYPRESSTAG>
 <CYPRESSTAG name="Design elaboration results...">
 </CYPRESSTAG>
-Elaboration phase: Elapsed time ==> 6s.177ms
+Elaboration phase: Elapsed time ==> 5s.931ms
 <CYPRESSTAG name="HDL generation results...">
 </CYPRESSTAG>
-HDL generation phase: Elapsed time ==> 0s.280ms
+HDL generation phase: Elapsed time ==> 0s.249ms
 <CYPRESSTAG name="Synthesis results...">
 
      | | | | | | |
@@ -41,7 +41,7 @@ Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=BE -ya -.fftprj=W:\Centro_Piag
 ======================================================================
 
 vlogfe V6.3 IR 41:  Verilog parser
-Tue Oct 21 16:35:08 2014
+Wed Oct 22 19:13:11 2014
 
 
 ======================================================================
@@ -51,7 +51,7 @@ Options  :    -yv2 -q10 firmware.v
 ======================================================================
 
 vpp V6.3 IR 41:  Verilog Pre-Processor
-Tue Oct 21 16:35:08 2014
+Wed Oct 22 19:13:11 2014
 
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\and_v1_0\and_v1_0.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\cy_virtualmux_v1_0\cy_virtualmux_v1_0.v'
@@ -80,7 +80,7 @@ Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\wa
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\cy_srff_v1_0\cy_srff_v1_0.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\CyStatusReg_v1_80\CyStatusReg_v1_80.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.v'
-Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_50\B_Timer_v2_50.v'
+Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_60\B_Timer_v2_60.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.v'
 
 vpp:  No errors.
@@ -108,8 +108,8 @@ C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\conten
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_UART_v2_30\B_UART_v2_30.v (line 1560, col 68):  Note: Substituting module 'cmp_vv_vv' for '<'.
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_PWM_v3_0\B_PWM_v3_0.v (line 955, col 28):  Note: Substituting module 'sub_vi_vv' for '-'.
 C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_PWM_v3_0\B_PWM_v3_0.v (line 985, col 46):  Note: Substituting module 'add_vi_vv' for '+'.
-C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_50\B_Timer_v2_50.v (line 368, col 46):  Note: Substituting module 'cmp_vv_vv' for '='.
-C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_50\B_Timer_v2_50.v (line 374, col 62):  Note: Substituting module 'add_vv_vv' for '+'.
+C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_60\B_Timer_v2_60.v (line 368, col 46):  Note: Substituting module 'cmp_vv_vv' for '='.
+C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_60\B_Timer_v2_60.v (line 374, col 62):  Note: Substituting module 'add_vv_vv' for '+'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\cy_psoc3pkg.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\cy_psoc3.vif'.
 
@@ -123,7 +123,7 @@ Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=BE -ya -.fftprj=W:\Centro_Piag
 ======================================================================
 
 tovif V6.3 IR 41:  High-level synthesis
-Tue Oct 21 16:35:09 2014
+Wed Oct 22 19:13:13 2014
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -156,7 +156,7 @@ Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\conte
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\AMux_v1_80\AMux_v1_80.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_srff_v1_0\cy_srff_v1_0.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyStatusReg_v1_80\CyStatusReg_v1_80.v'.
-Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_50\B_Timer_v2_50.v'.
+Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_60\B_Timer_v2_60.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\cy_psoc3pkg.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\cy_psoc3.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\mcompare.vif'.
@@ -172,7 +172,7 @@ Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=BE -ya -.fftprj=W:\Centro_Piag
 ======================================================================
 
 topld V6.3 IR 41:  Synthesis and optimization
-Tue Oct 21 16:35:13 2014
+Wed Oct 22 19:13:17 2014
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -205,7 +205,7 @@ Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\conte
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\AMux_v1_80\AMux_v1_80.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_srff_v1_0\cy_srff_v1_0.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyStatusReg_v1_80\CyStatusReg_v1_80.v'.
-Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_50\B_Timer_v2_50.v'.
+Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_60\B_Timer_v2_60.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\cy_psoc3pkg.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\cy_psoc3.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\mcompare.vif'.
@@ -1329,14 +1329,14 @@ CYPRESS_DIR    : C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\wa
 Warp Program   : C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\bin/warp.exe
 Warp Arguments : -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=BE -ya -.fftprj=W:\Centro_Piaggio\QB\qb_github\hand_firmware_micro\firmware.cydsn\firmware.cyprj -dcpsoc3 firmware.v -verilog
 </CYPRESSTAG>
-Warp synthesis phase: Elapsed time ==> 7s.456ms
+Warp synthesis phase: Elapsed time ==> 7s.574ms
 <CYPRESSTAG name="Fitter results...">
 <CYPRESSTAG name="Fitter startup details...">
-cyp3fit: V3.0.0.3023, Family: PSoC3, Started at: Tuesday, 21 October 2014 16:35:15
+cyp3fit: V3.0.0.3140, Family: PSoC3, Started at: Wednesday, 22 October 2014 19:13:19
 Options: -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=BE -ya -.fftprj=W:\Centro_Piaggio\QB\qb_github\hand_firmware_micro\firmware.cydsn\firmware.cyprj -d CY8C3246PVI-147 firmware.v -verilog
 </CYPRESSTAG>
 <CYPRESSTAG name="Design parsing">
-Design parsing phase: Elapsed time ==> 0s.046ms
+Design parsing phase: Elapsed time ==> 0s.050ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Tech mapping">
 <CYPRESSTAG name="Initial Mapping" icon="FILE_RPT_TECHM">
@@ -1846,7 +1846,7 @@ Design Equations
             Input Sync needed: False
             Output Sync needed: False
             SC shield enabled: False
-            POR State: INP_DIS_HI
+            POR State: INP_DIS_LO
             LCD Mode: COMMON
             Register Mode: RegComb
             CaSense Mode: NEITHER
@@ -1885,7 +1885,7 @@ Design Equations
             Input Sync needed: False
             Output Sync needed: False
             SC shield enabled: False
-            POR State: INP_DIS_HI
+            POR State: INP_DIS_LO
             LCD Mode: COMMON
             Register Mode: RegComb
             CaSense Mode: NEITHER
@@ -1924,7 +1924,7 @@ Design Equations
             Input Sync needed: False
             Output Sync needed: False
             SC shield enabled: False
-            POR State: INP_DIS_HI
+            POR State: INP_DIS_LO
             LCD Mode: COMMON
             Register Mode: RegComb
             CaSense Mode: NEITHER
@@ -1963,7 +1963,7 @@ Design Equations
             Input Sync needed: False
             Output Sync needed: False
             SC shield enabled: False
-            POR State: INP_DIS_HI
+            POR State: INP_DIS_LO
             LCD Mode: COMMON
             Register Mode: RegComb
             CaSense Mode: NEITHER
@@ -2003,7 +2003,7 @@ Design Equations
             Input Sync needed: False
             Output Sync needed: False
             SC shield enabled: False
-            POR State: INP_DIS_HI
+            POR State: INP_DIS_LO
             LCD Mode: COMMON
             Register Mode: RegComb
             CaSense Mode: NEITHER
@@ -2043,7 +2043,7 @@ Design Equations
             Input Sync needed: False
             Output Sync needed: False
             SC shield enabled: False
-            POR State: INP_DIS_HI
+            POR State: INP_DIS_LO
             LCD Mode: COMMON
             Register Mode: RegComb
             CaSense Mode: NEITHER
@@ -4411,9 +4411,9 @@ LCD Fixed Blocks              :    0 :    1 :    1 :   0.00%
 EMIF Fixed Blocks             :    0 :    1 :    1 :   0.00%
 LPF Fixed Blocks              :    0 :    2 :    2 :   0.00%
 </CYPRESSTAG>
-Technology Mapping: Elapsed time ==> 0s.452ms
+Technology Mapping: Elapsed time ==> 0s.441ms
 Info: mpr.M0037: Unused pieces of the design have been optimized out. See the Tech mapping section of the report file for details. (App=cydsfit)
-Tech mapping phase: Elapsed time ==> 0s.592ms
+Tech mapping phase: Elapsed time ==> 0s.670ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Placement">
 Info: apr.M0002: Analog signal "\ADC:Net_690\" is connected to one terminal only. (App=cydsfit)
@@ -4470,10 +4470,10 @@ IO_5@[IOP=(0)][IoId=(5)] : VOLTAGE_SENSE(0) (fixed)
 DSM[0]@[FFB(DSM,0)] : \ADC:DSM\
 Vref[6]@[FFB(Vref,6)] : \ADC:vRef_2\
 
-Analog Placement phase: Elapsed time ==> 0s.062ms
+Analog Placement phase: Elapsed time ==> 0s.050ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Routing">
-Analog Routing phase: Elapsed time ==> 0s.015ms
+Analog Routing phase: Elapsed time ==> 0s.014ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Code Generation">
 ============ Analog Final Answer Routes ============
@@ -4682,7 +4682,7 @@ Dump of CyP35AnalogRoutingResultsDB
 IsVddaHalfUsedForComp = False
 IsVddaHalfUsedForSar0 = False
 IsVddaHalfUsedForSar1 = False
-Analog Code Generation phase: Elapsed time ==> 0s.436ms
+Analog Code Generation phase: Elapsed time ==> 0s.448ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Placement">
 <CYPRESSTAG name="PLD Packing">
@@ -4706,17 +4706,17 @@ PLD Packing Summary
 <CYPRESSTAG name="Packed PLD Contents">
 Packed PLD Contents not displayed at this verbose level.</CYPRESSTAG>
 </CYPRESSTAG>
-PLD Packing: Elapsed time ==> 0s.000ms
+PLD Packing: Elapsed time ==> 0s.011ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Partitioning">
 <CYPRESSTAG name="Initial Partitioning Summary">
 Initial Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
 <CYPRESSTAG name="Final Partitioning Summary">
 Final Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
-Partitioning: Elapsed time ==> 0s.171ms
+Partitioning: Elapsed time ==> 0s.217ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Simulated Annealing">
-Annealing: Elapsed time ==> 0s.000ms
+Annealing: Elapsed time ==> 0s.003ms
 <CYPRESSTAG name="Simulated Annealing Results">
 The seed used for moves was 114161200.
 Inital cost was 604, final cost is 604 (0.00% improvement).</CYPRESSTAG>
@@ -7117,7 +7117,7 @@ Pin : Name = MOTOR_1A(0)
         Input Sync needed: False
         Output Sync needed: False
         SC shield enabled: False
-        POR State: INP_DIS_HI
+        POR State: INP_DIS_LO
         LCD Mode: COMMON
         Register Mode: RegComb
         CaSense Mode: NEITHER
@@ -7157,7 +7157,7 @@ Pin : Name = MOTOR_1B(0)
         Input Sync needed: False
         Output Sync needed: False
         SC shield enabled: False
-        POR State: INP_DIS_HI
+        POR State: INP_DIS_LO
         LCD Mode: COMMON
         Register Mode: RegComb
         CaSense Mode: NEITHER
@@ -7197,7 +7197,7 @@ Pin : Name = MOTOR_2A(0)
         Input Sync needed: False
         Output Sync needed: False
         SC shield enabled: False
-        POR State: INP_DIS_HI
+        POR State: INP_DIS_LO
         LCD Mode: COMMON
         Register Mode: RegComb
         CaSense Mode: NEITHER
@@ -7237,7 +7237,7 @@ Pin : Name = MOTOR_2B(0)
         Input Sync needed: False
         Output Sync needed: False
         SC shield enabled: False
-        POR State: INP_DIS_HI
+        POR State: INP_DIS_LO
         LCD Mode: COMMON
         Register Mode: RegComb
         CaSense Mode: NEITHER
@@ -7278,7 +7278,7 @@ Pin : Name = MOTOR_EN(0)
         Input Sync needed: False
         Output Sync needed: False
         SC shield enabled: False
-        POR State: INP_DIS_HI
+        POR State: INP_DIS_LO
         LCD Mode: COMMON
         Register Mode: RegComb
         CaSense Mode: NEITHER
@@ -7319,7 +7319,7 @@ Pin : Name = MOTOR_EN(1)
         Input Sync needed: False
         Output Sync needed: False
         SC shield enabled: False
-        POR State: INP_DIS_HI
+        POR State: INP_DIS_LO
         LCD Mode: COMMON
         Register Mode: RegComb
         CaSense Mode: NEITHER
@@ -8028,33 +8028,33 @@ Port | Pin | Fixed |      Type |       Drive Mode |               Name | Connect
 Info: plm.M0038: The pin named Signal_2_A(0) at location P0[3] prevents usage of special purposes: DSM:ExtVref. (App=cydsfit)
 </CYPRESSTAG>
 </CYPRESSTAG>
-Digital component placer commit/Report: Elapsed time ==> 0s.015ms
-Digital Placement phase: Elapsed time ==> 3s.556ms
+Digital component placer commit/Report: Elapsed time ==> 0s.012ms
+Digital Placement phase: Elapsed time ==> 3s.893ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Routing">
 Routing successful.
-Digital Routing phase: Elapsed time ==> 3s.931ms
+Digital Routing phase: Elapsed time ==> 3s.796ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream and API generation">
-Bitstream and API generation phase: Elapsed time ==> 2s.090ms
+Bitstream and API generation phase: Elapsed time ==> 2s.293ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream verification">
-Bitstream verification phase: Elapsed time ==> 0s.078ms
+Bitstream verification phase: Elapsed time ==> 0s.093ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Static timing analysis">
 Warning: sta.M0021: firmware_timing.html: Warning-1350: Asynchronous path(s) exist from "CyBUS_CLK(fixed-function)" to "CyBUS_CLK". See the timing report for details. (File=W:\Centro_Piaggio\QB\qb_github\hand_firmware_micro\firmware.cydsn\firmware_timing.html)
 Timing report is in firmware_timing.html.
-Static timing analysis phase: Elapsed time ==> 0s.717ms
+Static timing analysis phase: Elapsed time ==> 0s.795ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Data reporting">
 Data reporting phase: Elapsed time ==> 0s.000ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Database update...">
-Design database save phase: Elapsed time ==> 0s.312ms
+Design database save phase: Elapsed time ==> 0s.390ms
 </CYPRESSTAG>
-cydsfit: Elapsed time ==> 11s.871ms
+cydsfit: Elapsed time ==> 12s.525ms
 </CYPRESSTAG>
-Fitter phase: Elapsed time ==> 11s.902ms
-API generation phase: Elapsed time ==> 2s.371ms
+Fitter phase: Elapsed time ==> 12s.572ms
+API generation phase: Elapsed time ==> 2s.823ms
 Dependency generation phase: Elapsed time ==> 0s.015ms
 Cleanup phase: Elapsed time ==> 0s.000ms

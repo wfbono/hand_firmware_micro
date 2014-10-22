@@ -203,7 +203,7 @@ void commProcess(void){
 		    packet_data[2] = LCRChecksum(packet_data,packet_lenght - 1);
 		    commWrite(packet_data, packet_lenght);
 
-            break;
+            break; 
         
 //============================================================     CMD_GET_INPUT
 

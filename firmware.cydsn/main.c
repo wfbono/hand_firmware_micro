@@ -39,14 +39,14 @@
 #include <device.h>
 #include <globals.h> // ALL GLOBAL DEFINITIONS, STRUCTURES AND MACROS HERE
 #include <interruptions.h>
-#include <command_processing.h>	
+#include <command_processing.h>
 #include <utils.h>
 
 //==============================================================================
 //                                                                 MAIN FUNCTION
 //==============================================================================
 
-int i;			//iterator
+int i;              //iterator
 
 
 void main()
