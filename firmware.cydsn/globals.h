@@ -26,7 +26,7 @@
 //                                                                        DEVICE
 //==============================================================================
 
-#define VERSION         "THE v3.0.1"
+#define VERSION         "THE v3.1.0"
 
 #define NUM_OF_MOTORS   2
 #define NUM_OF_SENSORS  3
@@ -41,12 +41,11 @@
 #define CONTROL_ANGLE           0
 #define CONTROL_PWM             1
 #define CONTROL_CURRENT         2
-#define CONTROL_EMG_1           3
 
 //==================================================     control type definition
 
+#define CONTROL_MODE           CONTROL_ANGLE
 // #define CONTROL_MODE         CONTROL_CURRENT
- #define CONTROL_MODE           CONTROL_ANGLE
 // #define CONTROL_MODE         CONTROL_PWM
 
 
@@ -115,10 +114,10 @@ struct st_meas {
 //==============================================================     data packet
 
 struct st_data {
-    uint8   buffer[128];                    // CMD/DATA/CHECKSUM
-    int16   length;                         // length
-    int16   ind;                            // index
-    uint8   ready;                          // Flag
+    uint8   buffer[128];            // CMD/DATA/CHECKSUM
+    int16   length;                 // length
+    int16   ind;                    // index
+    uint8   ready;                  // Flag
 };
 
 //============================================     settings stored on the memory 
@@ -132,19 +131,21 @@ struct st_mem {
     int32   k_d;                        // Integrative constant
 
     uint8   activ;                      // Activation upon startup
-    uint8   input_mode;                     // Input mode
+    uint8   input_mode;                 // Input mode
 
     uint8   res[NUM_OF_SENSORS];        // Angle resolution
     int32   m_off[NUM_OF_SENSORS];      // Measurement offset
     float   m_mult[NUM_OF_SENSORS];     // Measurement multiplier
+
+                                        // Absolute position limits
     uint8   pos_lim_flag;               // Position limit active/inactive
     int32   pos_lim_inf[NUM_OF_MOTORS]; // Inferior position limit for motors
     int32   pos_lim_sup[NUM_OF_MOTORS]; // Superior position limit for motors
 
     int32   max_step_pos;               // Maximum number of step per cylce when
-    int32   max_step_neg;               // using sensor 3 as input
+    int32   max_step_neg;               // using sensor 2 as input
 
-    int16  current_limit;              // Limit for absorbed current
+    int16   current_limit;              // Limit for absorbed current
 };
 
 //=================================================     device related variables
@@ -152,10 +153,11 @@ struct st_mem {
 struct st_dev{
     int32   tension;                // Power supply tension
     float   tension_conv_factor;    // Used to calculate input tension
-    uint8   tension_valid;
     int8    pwm_limit;
 };
 
+
+//==============================================     hand calibration parameters
 
 struct st_calib {
     uint8   enabled;
@@ -167,13 +169,11 @@ struct st_calib {
 
 //====================================      external global variables definition
 
-
-
 extern struct st_ref    g_ref;          // motor variables
 extern struct st_meas   g_meas;         // measurements
 extern struct st_data   g_rx;           // income data
 extern struct st_mem    g_mem, c_mem;   // memory
-extern struct st_dev    device;         //device related variables
+extern struct st_dev    device;         // device related variables
 extern struct st_calib  calib;
 
 extern int32 opened_hand_pos;

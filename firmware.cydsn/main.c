@@ -70,7 +70,7 @@ void main()
     UART_RS485_ClearRxBuffer();
     UART_RS485_ClearTxBuffer();
 
-    ISR_RS485_RX_StartEx(ISR_RS485_RX_ExInterrupt);     // RS485 isr function    
+    ISR_RS485_RX_StartEx(ISR_RS485_RX_ExInterrupt);     // RS485 isr function
 
     // PWM
     
@@ -89,17 +89,19 @@ void main()
         
     // ADC
     
-    ADC_Start();                                     // start ADC
+    ADC_Start();                            // start ADC
     ADC_StartConvert();
 
-    AMUXSEQ_MOTORS_Start();                              // start mux
+    AMUXSEQ_MOTORS_Start();                 // start mux
+
+    // Temporization
 
     MY_TIMER_Start();
     PACER_TIMER_Start();
 
-    RS485_CTS_Write(0);   
+    RS485_CTS_Write(0);
 
-    CYGlobalIntEnable;                                  // enable interrupts        
+    CYGlobalIntEnable;                      // enable interrupts
 
 //========================================     initializations - clean variables
 
@@ -121,9 +123,8 @@ void main()
     g_meas.emg[0] = 0;
     g_meas.emg[1] = 0;
 
-    g_rx.length         = 0;
-    g_rx.ready          = 0;
-    
+    g_rx.length   = 0;
+
     // Activating motors
     g_ref.pos[0] = g_meas.pos[0];
     g_ref.pos[1] = g_meas.pos[1];

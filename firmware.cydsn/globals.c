@@ -31,6 +31,8 @@ int8 dx_sx_hand;            //-1 dx, 1 sx
 
 float tau_feedback;
 
+// utility timer value for display
+
 uint16 timer_value;
 
 /* END OF FILE */

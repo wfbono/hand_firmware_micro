@@ -86,10 +86,9 @@ int32 filter_i2(int32 new_value) {
 
 
 uint8 BITChecksum(uint32 mydata) {
-    uint8 i;
-    uint8 checksum = 0;
-    for(i = 0; i < 31; ++i)
-    {
+    static uint8 i;
+    static uint8 checksum = 0;
+    for(i = 0; i < 31; ++i) {
         checksum = checksum ^ (mydata & 1);
         mydata = mydata >> 1;
     }

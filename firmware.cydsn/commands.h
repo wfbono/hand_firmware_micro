@@ -23,7 +23,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 /**
- * \file        commands.h
+ *  \file       commands.h
  *
  *  \brief      Definitions for QB Move commands, parameters and packages.
  *
@@ -154,8 +154,10 @@ enum qbmove_mode
     INPUT_MODE_ENCODER3         = 1,    ///< Encoder 3 drives all inputs
     INPUT_MODE_EMG_PROPORTIONAL = 2,    ///< Use EMG measure to proportionally
                                         ///  drive the position of the motor 1
-    INPUT_MODE_EMG_INTEGRAL     = 3     ///< Use 2 EMG signals to drive motor
+    INPUT_MODE_EMG_INTEGRAL     = 3,    ///< Use 2 EMG signals to drive motor
                                         ///  position
+    INPUT_MODE_EMG_FCFS         = 4     ///< Use 2 EMG. First reaching threshold
+                                        ///  wins and its value defines hand closure
 };
 
 /** \} */

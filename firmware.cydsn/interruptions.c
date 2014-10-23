@@ -37,38 +37,37 @@ CY_ISR(ISR_RS485_RX_ExInterrupt){
 
 //===============================================     local variables definition
 
-    static uint8    state = 0;                          // state
+    static uint8    state = 0;                          // actual state
     static struct   st_data data_packet;                // local data packet
     static uint8    rx_queue[3];                        // last 3 bytes received
-                                                      
     static uint8    rx_data;                            // RS485 UART rx data
-    static uint8    rx_data_type;                       // my id?
+    static uint8    rx_data_type;                       // packet for me or not
     
         
 //==========================================================     receive routine
 
 // get data while rx fifo is not empty
     while (UART_RS485_ReadRxStatus() & UART_RS485_RX_STS_FIFO_NOTEMPTY) {
-        rx_data = UART_RS485_GetChar();             
-        switch (state){
+        rx_data = UART_RS485_GetChar();
+
+        switch (state) {
 ///////////////////////////   wait for frame start   ///////////////////////////            
             case 0:
 
                 rx_queue[0] = rx_queue[1];
                 rx_queue[1] = rx_queue[2];
                 rx_queue[2] = rx_data;
-                        
-                if((rx_queue[1] == ':') &&
-                (rx_queue[2] == ':')){
+
+                // Finding starting frame
+                if ((rx_queue[1] == ':') && (rx_queue[2] == ':')) {
                     rx_queue[0] = 0;
                     rx_queue[1] = 0;
                     rx_queue[2] = 0;
                     state       = 1;
-                }
-                else if(
-                (rx_queue[0] == 63) &&      //ASCII - ?
-                (rx_queue[1] == 13) &&      //ASCII - CR
-                (rx_queue[2] == 10)){       //ASCII - LF
+                } else if(  //this has to be removed
+                        (rx_queue[0] == 63) &&      //ASCII - ?
+                        (rx_queue[1] == 13) &&      //ASCII - CR
+                        (rx_queue[2] == 10)){       //ASCII - LF
                     infoSend();
                 }
                 break;
@@ -77,7 +76,7 @@ CY_ISR(ISR_RS485_RX_ExInterrupt){
             case 1:
 
                 // packet is for my ID or is broadcast
-                if(rx_data == c_mem.id || rx_data == 0) {
+                if((rx_data == c_mem.id) || (rx_data == 0)) {
                     rx_data_type = 0;
                 } else {                //packet is for others
                     rx_data_type = 1;
@@ -91,10 +90,10 @@ CY_ISR(ISR_RS485_RX_ExInterrupt){
 
                 data_packet.length = rx_data;
                 // check validity of pack length
-                if(data_packet.length <= 1) {
+                if (data_packet.length <= 1) {
                     data_packet.length = -1;
                     state = 0;
-                } else if(data_packet.length > 128) {
+                } else if (data_packet.length > 128) {
                     data_packet.length = -1;
                     state = 0;
                 } else {
@@ -105,41 +104,43 @@ CY_ISR(ISR_RS485_RX_ExInterrupt){
                         state = 4;          // packet for others
                     }
                 }
-            break;
+                break;
 
 /////////////////////////////////   receving   /////////////////////////////////
             case 3:
 
-            data_packet.buffer[data_packet.ind] = rx_data;
-            data_packet.ind++;
-            // check end of transmission                
-            if(data_packet.ind >= data_packet.length){
-                // verify if frame ID corresponded to the device ID
-                if(rx_data_type == 0){
-                    // copying data from buffer to global packet
-                    memcpy(g_rx.buffer, data_packet.buffer, data_packet.length);
-                    g_rx.length = data_packet.length;
-                    g_rx.ready  = 1;
-                    commProcess();
+                data_packet.buffer[data_packet.ind] = rx_data;
+                data_packet.ind++;
+
+                // check end of transmission                
+                if (data_packet.ind >= data_packet.length) {
+                    // verify if frame ID corresponded to the device ID
+                    if (rx_data_type == 0) {
+                        // copying data from buffer to global packet
+                        memcpy(g_rx.buffer, data_packet.buffer, data_packet.length);
+                        g_rx.length = data_packet.length;
+                        commProcess();
+                    }
+                    data_packet.ind    =  0;
+                    data_packet.length = -1;
+                    state              =  0;
                 }
-                data_packet.ind    =  0;
-                data_packet.length = -1;
-                state              =  0;
-            }
-            break;
+                break;
 
 /////////////////////////   other device is receving    ////////////////////////
             case 4:
+
                 if(!(--data_packet.length)) {
                     data_packet.ind    = 0;
                     data_packet.length = -1;
                     RS485_CTS_Write(1);
-                    RS485_CTS_Write(0);    
+                    RS485_CTS_Write(0);
                     state              = 0;
                 }
-            break;
+                break;
         }
     }
+
     /* PSoC3 ES1, ES2 RTC ISR PATCH  */ 
     #if(CYDEV_CHIP_FAMILY_USED == CYDEV_CHIP_FAMILY_PSOC3)
         #if((CYDEV_CHIP_REVISION_USED <= CYDEV_CHIP_REVISION_3A_ES2) && (ISR_RS485_RX__ES2_PATCH ))
@@ -234,9 +235,9 @@ void motor_control(void) {
 
     static int32 err_sum_1, err_sum_2;
 
-    static int32 cuff_k_p  =    -0.001 * 65536;
-    static int32 cuff_k_i  =    0 * 65536;
-    static int32 cuff_k_d  =    -0.002 * 65536;
+    static int32 cuff_k_p  = -0.001 * 65536;
+    static int32 cuff_k_i  = 0 * 65536;
+    static int32 cuff_k_d  = -0.002 * 65536;
 
     //emg threshold
     // static int threshold = 20;
