@@ -73,6 +73,8 @@ enum qbmove_command
     CMD_INIT_MEM                = 10,
 
     CMD_CALIBRATE               = 11,
+    +
+    
 
 
 //=========================================================     QB Move commands
